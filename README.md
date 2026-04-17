@@ -7,8 +7,8 @@
 - Регистрация зависимостей через `Register()` и `RegisterWithError()`.
 - Автоматическая инъекция аргументов конструктора.
 - Поддержка scope:
-	- `Singleton` — один объект на контейнер.
-	- `Prototype` — новый объект на каждый `GetInstance()`.
+	- `Singleton` -- один объект на контейнер.
+	- `Prototype` -- новый объект на каждый `GetInstance()`.
 
 ## Container Methods
 
@@ -29,7 +29,7 @@
 
 `go run ./examples/basic`
 
-- `Service` создается как `Prototype` (каждый вызов — новый объект).
+- `Service` создается как `Prototype` (каждый вызов -- новый объект).
 - `Repository` создается как `Singleton` (общий объект между сервисами).
 - Зависимость `*Repository` автоматически передается в конструктор `Service`.
 
