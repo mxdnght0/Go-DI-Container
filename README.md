@@ -1,6 +1,7 @@
 # Go-DI-Container
 
 [![Tests](https://github.com/mxdnght0/Go-DI-Container/actions/workflows/tests.yml/badge.svg)](https://github.com/mxdnght0/Go-DI-Container/actions/workflows/tests.yml)
+[![Coverage](https://codecov.io/gh/mxdnght0/Go-DI-Container/graph/badge.svg)](https://codecov.io/gh/mxdnght0/Go-DI-Container)
 
 Простой DI-контейнер на Go с поддержкой областей видимости и автоматического внедрения зависимостей через аргументы конструктора.
 
@@ -46,6 +47,20 @@
 - Регистрацию через `RegisterWithError()`.
 - Корректную обработку ошибки конструктора.
 - Успешное создание объекта после устранения причины ошибки.
+
+## Coverage
+
+Локально:
+
+`go test -covermode=atomic -coverprofile=coverage.out ./...`
+
+Краткий отчет:
+
+`go tool cover -func=coverage.out`
+
+HTML-отчет:
+
+`go tool cover -html=coverage.out -o coverage.html`
 
 ## Важно
 
