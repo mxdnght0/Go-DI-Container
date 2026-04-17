@@ -1,5 +1,7 @@
 # Go-DI-Container
 
+[![Tests](https://github.com/mxdnght0/Go-DI-Container/actions/workflows/tests.yml/badge.svg)](https://github.com/mxdnght0/Go-DI-Container/actions/workflows/tests.yml)
+
 Простой DI-контейнер на Go с поддержкой областей видимости и автоматического внедрения зависимостей через аргументы конструктора.
 
 ## Возможности
