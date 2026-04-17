@@ -6,8 +6,12 @@ import (
 	"sync"
 )
 
+type dependency struct {
+	ctorArgs []reflect.Type
+	ctorVal  constructorValue
+}
 type Container struct {
-	dependencyMap map[reflect.Type][]reflect.Type
+	dependencyMap map[reflect.Type]dependency
 	objects       []getObjectFunc
 	mu            sync.RWMutex
 }
