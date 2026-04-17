@@ -26,14 +26,15 @@ jobs:
           go test -v -covermode=atomic -coverprofile=coverage.out ./...
           go tool cover -func=coverage.out
 
+      - name: Generate coverage summary
+        run: |
+          total=$(go tool cover -func=coverage.out | tail -n 1 | awk '{print $3}')
+          echo "### Coverage" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "Total: **$total**" >> "$GITHUB_STEP_SUMMARY"
+
       - name: Upload coverage artifact
         uses: actions/upload-artifact@v4
         with:
           name: coverage-report
           path: coverage.out
-
-      - name: Upload to Codecov
-        uses: codecov/codecov-action@v5
-        with:
-          files: ./coverage.out
-          fail_ci_if_error: false

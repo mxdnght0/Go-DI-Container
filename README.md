@@ -1,7 +1,7 @@
 # Go-DI-Container
 
 [![Tests](https://github.com/mxdnght0/Go-DI-Container/actions/workflows/tests.yml/badge.svg)](https://github.com/mxdnght0/Go-DI-Container/actions/workflows/tests.yml)
-[![Coverage](https://codecov.io/gh/mxdnght0/Go-DI-Container/graph/badge.svg)](https://codecov.io/gh/mxdnght0/Go-DI-Container)
+[![Coverage](https://github.com/mxdnght0/Go-DI-Container/actions/workflows/coverage.yml/badge.svg)](https://github.com/mxdnght0/Go-DI-Container/actions/workflows/coverage.yml)
 
 Простой DI-контейнер на Go с поддержкой областей видимости и автоматического внедрения зависимостей через аргументы конструктора.
 
