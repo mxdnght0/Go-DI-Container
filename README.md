@@ -10,7 +10,7 @@
 	- `Singleton` — один объект на контейнер.
 	- `Prototype` — новый объект на каждый `GetInstance()`.
 
-## API
+## Container Methods
 
 - `NewContainer() *Container`
 - `Register(t any, ctor any, s Scope) error`
