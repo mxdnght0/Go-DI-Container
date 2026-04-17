@@ -100,7 +100,9 @@ func (c *Container) GetInstance(t any) (any, error) {
 	args := d.ctorArgs
 	valueArgs := make([]reflect.Value, len(args))
 	for i, arg := range args {
+		c.mu.RLock()
 		obj, found := c.dependencyMap[arg]
+		c.mu.RUnlock()
 		if !found {
 			return nil, fmt.Errorf("%w: %s", ErrDependencyNotFound, arg)
 		}
@@ -111,7 +113,7 @@ func (c *Container) GetInstance(t any) (any, error) {
 		valueArgs[i] = reflect.ValueOf(valueArg)
 	}
 
-	if d.ctorType.NumOut() == 2 {
+	if d.ctorType.NumOut() == 1 { // TODO: refactor this block of code
 		if d.scope == Prototype {
 			d.getObjectFunc = newPrototypeGetObjectFunc(valueArgs, d.ctorVal)
 		} else {
@@ -124,6 +126,10 @@ func (c *Container) GetInstance(t any) (any, error) {
 			d.getObjectFunc = newSingletonGetObjectFuncWithError(valueArgs, d.ctorVal)
 		}
 	}
+
+	c.mu.Lock()
+	c.dependencyMap[reflect.TypeOf(t)] = d
+	c.mu.Unlock()
 
 	return d.getObjectFunc()
 }

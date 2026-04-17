@@ -1,32 +1,53 @@
-
 # Go-DI-Container
 
-## Design
+Простой DI-контейнер на Go с поддержкой областей видимости и автоматического внедрения зависимостей через аргументы конструктора.
 
-**Scopes:**
-- **Singleton** — One instance of the object per container.
-- **Prototype** — A new instance of the object for each request.
+## Возможности
 
----
+- Регистрация зависимостей через `Register()` и `RegisterWithError()`.
+- Автоматическая инъекция аргументов конструктора.
+- Поддержка scope:
+	- `Singleton` — один объект на контейнер.
+	- `Prototype` — новый объект на каждый `GetInstance()`.
 
-## Methods
+## API
 
-| Method | Description |
-|--------|-------------|
-| `Register(ObjectType, ConstructorFunction, Scope) error` | Registers a dependency. Returns an error if registration fails. |
-| `MustRegister(ObjectType, ConstructorFunction, Scope)` | Registers a dependency. Panics if registration fails. |
-| `RegisterWithError(ObjectType, ConstructorFunctionWithError, Scope) error` | Registers a dependency using a constructor that may return an error. Returns an error if registration fails. |
-| `MustRegisterWithError(ObjectType, ConstructorFunctionWithError, Scope)` | Registers a dependency using a constructor that may return an error. Panics if registration fails. |
-| `GetInstance(ObjectType) (interface{}, error)` | Returns an instance of the object. Returns an error if instance creation fails. |
-| `MustGetInstance(ObjectType) interface{}` | Returns an instance of the object. Panics if instance creation fails. |
-| `GetInstanceWithError(ObjectType) (interface{}, error)` | Returns an instance of the object using a constructor that may return an error. Returns an error if instance creation fails. |
-| `MustGetInstanceWithError(ObjectType) interface{}` | Returns an instance of the object using a constructor that may return an error. Panics if instance creation fails. |
+- `NewContainer() *Container`
+- `Register(t any, ctor any, s Scope) error`
+- `MustRegister(t any, ctor any, s Scope)`
+- `RegisterWithError(t any, ctor any, s Scope) error`
+- `MustRegisterWithError(t any, ctor any, s Scope)`
+- `GetInstance(t any) (any, error)`
 
----
+## Usage
 
-### Notes
+### 1) Базовый пример: инъекция зависимостей + scope
 
-- `ConstructorFunction` is a function that returns an instance (e.g. `func() *MyType`).
-- `ConstructorFunctionWithError` is a function that returns an instance and an error (e.g. `func() (*MyType, error)`).
-- Methods with the `Must` prefix panic on any error.
+Файл: [examples/basic/main.go](examples/basic/main.go)
+
+Запуск:
+
+`go run ./examples/basic`
+
+- `Service` создается как `Prototype` (каждый вызов — новый объект).
+- `Repository` создается как `Singleton` (общий объект между сервисами).
+- Зависимость `*Repository` автоматически передается в конструктор `Service`.
+
+### 2) Конструктор с ошибкой
+
+Файл: [examples/with_error/main.go](examples/with_error/main.go)
+
+Запуск:
+
+`go run ./examples/with_error`
+
+- Регистрацию через `RegisterWithError()`.
+- Корректную обработку ошибки конструктора.
+- Успешное создание объекта после устранения причины ошибки.
+
+## Важно
+
+- Тип при регистрации и тип при `GetInstance()` должны совпадать.
+- Для `Register()` конструктор должен возвращать ровно 1 значение: `func(...) T`.
+- Для `RegisterWithError()` конструктор должен возвращать 2 значения: `func(...) (T, error)`.
 
