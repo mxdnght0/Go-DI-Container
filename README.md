@@ -3,7 +3,7 @@
 
 ## Design
 
-**Injection Types:**
+**Scopes:**
 - **Singleton** — One instance of the object per container.
 - **Prototype** — A new instance of the object for each request.
 
@@ -13,10 +13,10 @@
 
 | Method | Description |
 |--------|-------------|
-| `Register(ObjectType, ConstructorFunction, InjectionType) error` | Registers a dependency. Returns an error if registration fails. |
-| `MustRegister(ObjectType, ConstructorFunction, InjectionType)` | Registers a dependency. Panics if registration fails. |
-| `RegisterWithError(ObjectType, ConstructorFunctionWithError, InjectionType) error` | Registers a dependency using a constructor that may return an error. Returns an error if registration fails. |
-| `MustRegisterWithError(ObjectType, ConstructorFunctionWithError, InjectionType)` | Registers a dependency using a constructor that may return an error. Panics if registration fails. |
+| `Register(ObjectType, ConstructorFunction, Scope) error` | Registers a dependency. Returns an error if registration fails. |
+| `MustRegister(ObjectType, ConstructorFunction, Scope)` | Registers a dependency. Panics if registration fails. |
+| `RegisterWithError(ObjectType, ConstructorFunctionWithError, Scope) error` | Registers a dependency using a constructor that may return an error. Returns an error if registration fails. |
+| `MustRegisterWithError(ObjectType, ConstructorFunctionWithError, Scope)` | Registers a dependency using a constructor that may return an error. Panics if registration fails. |
 | `GetInstance(ObjectType) (interface{}, error)` | Returns an instance of the object. Returns an error if instance creation fails. |
 | `MustGetInstance(ObjectType) interface{}` | Returns an instance of the object. Panics if instance creation fails. |
 | `GetInstanceWithError(ObjectType) (interface{}, error)` | Returns an instance of the object using a constructor that may return an error. Returns an error if instance creation fails. |
